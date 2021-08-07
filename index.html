@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+   <div class="jumbotron text-center">
+   </div>
+<div class="container text-center">
+<div class="row col-sm-12">
+<div class="form-group purple-border">
+   <label for="exampleFormControlTextarea4">Enter Tweet (Leave blank if You don't have)</label>
+   <textarea class="form-control" id="tweet" rows="6"></textarea>
+</br><button type="button" onclick="generate_()" class="btn btn-primary">Generate</button>
+
+
+<script>function generate_() {
+   var input = document.getElementById("tweet").value;
+   
+class Tag{
+  constructor(tweet){
+    this.tweet = tweet;
+    this.god = '#PurneaAirportLA @MoCA_GoI';
+    this.tags = {
+            'high_profile':['@PMOIndia', '@NitishKumar', '@JM_Scindia', '@AAI_Official'],
+            'n_ministers': ['@narendramodi', '@rajnathsingh','@AmitShah', '@nitin_gadkari'],
+            'c_ministers': ['@tarkishorepd', ' @RamsuratRai', ' @JPNadda', '@KirenRijiju', '@Gen_VKSingh'],
+            'o_politician':['@RahulGandhi','@laluprasadrjd','@RCP_Singh','@asadowaisi','@jitanrmanjhi',
+                '@NityanandRai','@yadavtejashwi','@iChiragPaswan','@asadowaisi','@manojkjhadu','@DrMadanMohanJha'],
+            'local_politician':['@LeshiSingh','@KrishnaRishiBJP','@vijaykhemkamla','@AfaqueKasbaMLA',
+                '@Akhtaruliman5','@Syed_Ruknuddin5','@BhartiBima'],
+            'local_p':['@MPSantoshPurnea','@PkSinghMP','@DrMdJawaid1','@DulalChandraGo3','@mehboob_kaiser','@dcyadavjdu'],
+            'high_org': ['@IAF_INDIA', '@patnahighcourt', '@BiharRevenue', '@DefenceHQ', '@IPRD_Bihar'],
+            'pol_2':['@pappuyadavjapl','@udaysingh1','@itariqanwar','@SharadYadavMP','@ShahnawazBJP','@Akhtaruliman5'],
+            'opp_p':['@BJP4India','@INCIndia','@RJDforIndia','@Jduonline','@aimim_national','@LJP4India'],
+            'local_party_off':['@BJP4Purnea','@INC_Purnea','@purnea_rjd','@Jduonline','@aimimpartybihar'],
+            'news_bihar': ['@News18Bihar','@ZeeBiharNews','@BiharTakchannel','@Live_Cities','@Abpbihar',
+                '@NBTBihar','@ETVBharatBR','@firstbiharnews','@TOIPatna','@DainikBhaskar','@HindustanTimes',
+                    '@JagranNews','@AmarUjalaNews','@Live_Hindustan','@prabhatkhabar','@KashishBihar'],
+            'news_nat':['@aajtak','@ZeeNews','@ndtv','@ABPNews','@NavbharatTimes','@AHindinews','@news4nations',
+                '@PTI_News','@TimesNow','@IndianExpress','@htTweets','@IndiaToday','@HindustanTimes',
+                    '@timesofindia','@the_hindu','@IndianExpress']
+        };
+      this.rank = {
+            1: ['high_profile', 'n_ministers', 'c_ministers', 'high_org'], 
+            2: ['news_bihar'],
+            3: ['o_politician', 'local_politician', 'local_p'], 
+            4: ['pol_2', 'opp_p'],
+            5: ['local_party_off', 'news_nat']
+        };
+  }
+
+  random_(i, j){
+   if (j === 1){
+      return 0;
+    }
+    var rndInt = Math.floor(Math.random() * j) + i;
+    return rndInt;
+  }
+
+  limi_wrd( n){
+        n = 280-n;
+        var tags_list = ' ';
+        tags_list += this.god;
+        n = n - this.god.length;
+        var i = 1;
+        while(n>0){
+            
+            var trl = this.rank[i].length;
+            var rnd = this.random_(0,trl)
+            var vcd = this.rank[i][rnd]
+            var first = this.tags[vcd];
+            //console.log("In loop ", i, trl, vcd, rnd, n);
+            first = (' '+first[this.random_(0, (first.length))]);
+            if (n-first.length<0){break;}
+            tags_list += (' ')+first;
+            i += 1;
+            n = n - ((first.length)+1);
+            if (i === 5){
+                i = 1;
+            }
+        }
+        return(tags_list);
+  }
+    generate(){
+        let res = this.limi_wrd(this.tweet.length);
+        let a = this.tweet;
+        a = a.replace("#PurneaAirportLA", "");
+        return a + res;
+    }
+}
+
+let t = new Tag(input);
+input = t.generate();
+document.getElementById("tweet_tagged").value = input;
+}
+</script>
+ </div>
+ </div>
+ </div>
+ <div class="container text-center">
+   <div class="row col-sm-12">
+   <div class="form-group purple-border">
+      <label for="exampleFormControlTextarea4">Click on copy to copy tweet</label>
+      <textarea class="form-control" id="tweet_tagged" rows="6"></textarea>
+   </div></div></div>
+ </body>
